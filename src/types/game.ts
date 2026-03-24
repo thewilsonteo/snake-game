@@ -5,26 +5,26 @@ export interface Position {
     y: number;  // vertical
 }
 
-const Direction = {
+export const Direction = {
     UP: "UP",
     DOWN: "DOWN",
     LEFT: "LEFT",
     RIGHT:"RIGHT",
 } as const;
-type Direction = (typeof Direction)[keyof typeof Direction]
+export type DirectionType = (typeof Direction)[keyof typeof Direction]
 
-const GameStatus = {
+export const GameStatus = {
     IDLE: "IDLE",
     PLAYING: "PLAYING",
     GAME_OVER: "GAME_OVER",
 } as const;
-type GameStatus = (typeof GameStatus)[keyof typeof GameStatus]
+export type GameStatusType = (typeof GameStatus)[keyof typeof GameStatus]
 
 export interface GameState {
     snake: Position[];
     food: Position;
-    direction: Direction;
+    direction: DirectionType;
     score: number;
-    gameStatus: GameStatus;
+    gameStatus: GameStatusType;
     highScore: number;
 }

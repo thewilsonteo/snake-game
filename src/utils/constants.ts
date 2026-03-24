@@ -1,6 +1,7 @@
 export const CELL_SIZE = 20;
 export const GRID_SIZE = 30;
 
+export const INITIAL_SPEED = 150;
 export const INITIAL_SNAKE_LENGTH = 3;
 
 export const COLORS = {
