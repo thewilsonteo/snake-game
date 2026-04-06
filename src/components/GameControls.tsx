@@ -14,7 +14,7 @@ export const GameControls = ({
     // onResume,
     onReset,
 }: GameControlsProps) => {
-    const buttonBaseClasses = ""
+    const buttonBaseClasses = "px-6 py-3 rounded-lg font-semibold text-white transition-all gap-3 inline-flex items-center"
 
     const renderMainButton = () => {
         switch (gameStatus) {
@@ -22,22 +22,38 @@ export const GameControls = ({
                 return (
                     <button
                         onClick={onStart}
-                        className={`${buttonBaseClasses}`}
+                        className={`${buttonBaseClasses} bg-green-500 hover:bg-green-700`}
                     >
                         <Play size={20} />
-                        Play
+                        <span>Play</span>
                     </button>
                 )
             case GameStatus.PLAYING:
-                return;
+                return (
+                    <button
+                        color="blue"
+                        onClick={onReset}
+                        className={`${buttonBaseClasses}
+                        bg-red-500
+                        hover:bg-red-700
+                        `}
+                    >
+                        <RotateCcw size={20} />
+                        <span>Reset</span>
+                    </button>  
+                )
             case GameStatus.GAME_OVER:
                 return (
                     <button
+                        color="blue"
                         onClick={onReset}
-                        className={`${buttonBaseClasses}`}
+                        className={`${buttonBaseClasses}
+                        bg-red-500
+                        hover:bg-red-700
+                        `}
                     >
                         <RotateCcw size={20} />
-                        Reset
+                        <span>Reset</span>
                     </button>  
                 )
         }
@@ -47,15 +63,18 @@ export const GameControls = ({
         <div>
             {renderMainButton()}
 
-            {gameStatus !== GameStatus.IDLE && (
+            {/* {gameStatus !== GameStatus.IDLE && gameStatus !== GameStatus.GAME_OVER && (
                 <button
                     onClick={onReset}
-                    className={`${buttonBaseClasses}`}
+                    className={`${buttonBaseClasses}
+                        bg-red-500
+                        hover:bg-red-700
+                        `}
                 >
                     <RotateCcw size={20} />
-                    Reset
+                    <span>Reset</span>
                 </button>
-            )}
+            )} */}
         </div>
     )
 };

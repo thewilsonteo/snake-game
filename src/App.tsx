@@ -21,35 +21,37 @@ function App() {
   useGameLoop(updateGame, INITIAL_SPEED, gameStatus === GameStatus.PLAYING);
 
   return (
-    <div className="gap-8">
-      <h1 className="text-6xl font-bold">
-        Snake Game
-      </h1>
-      <p>
-        Score: {score}
-      </p>
-      <div className="min-h screen flex justify-center">
-        {/* 15 x 15 snake game */}
-        <GameCanvas snake={snake} food={food}/>
-      </div>
-      <div>
-        Play
-        <GameControls
-          gameStatus={gameStatus}
-          onStart={startGame}
-          // onResume={resumeGame}
-          onReset={resetGame}
-        />
-      </div>
-      <p>
-        WASD ←↑↓→ Move Snake
-      </p>
+    <div className="flex item-center justify-center p-8">
+      <div className="gap-8">
+        <h1 className="text-6xl font-bold">
+          Snake Game
+        </h1>
+        <p className="text-gray-400 text-lg">
+          Score: {score}
+        </p>
+        <div className="flex flex-col items-center p-7">
+          {/* 15 x 15 snake game */}
+          <GameCanvas snake={snake} food={food}/>
+        </div>
+        <div>
+          <GameControls
+            gameStatus={gameStatus}
+            onStart={startGame}
+            // onResume={resumeGame}
+            onReset={resetGame}
+          />
+        </div>
+        <div className="p-7 text-gray-300">
+          <h3 className="text-xl font-bold text-white mb-1">Instructions</h3>
+          <p className="text-sm">
+            W/A/S/D ←/↑/↓/→ Move Snake
+          </p>
+        </div>
 
+      </div>
     </div>
 
-
-    
   )
 }
 
-export default App
+export default App;

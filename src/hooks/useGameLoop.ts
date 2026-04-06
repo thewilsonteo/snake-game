@@ -13,6 +13,7 @@ export const useGameLoop = (
         (time: number) => {
             if (previousTimeRef.current !== undefined) {
                 const deltaTime = time - previousTimeRef.current;
+                // console.log('deltaTime', deltaTime, 'delay', delay);
 
                 if (deltaTime >= delay) {
                     callback();

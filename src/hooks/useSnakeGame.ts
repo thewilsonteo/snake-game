@@ -7,12 +7,11 @@ export const useSnakeGame = () => {
     const getInitialSnake = (): Position[] => {
         const gridDimension = GRID_SIZE
         const centerX = Math.floor(gridDimension / 2);
-        const centerY = Math.floor(gridDimension/2);
+        const centerY = Math.floor(gridDimension / 2);
         const snake: Position[] = [];
 
         for (let i = 0; i < INITIAL_SNAKE_LENGTH; i++) {
-            console.log('i', i, {x: centerX - i , y: centerY});
-            snake.push({x: centerX - i , y: centerY})
+            snake.push({x: centerX - i, y: centerY})
         }
 
         return snake;
@@ -28,9 +27,11 @@ export const useSnakeGame = () => {
 
     const startGame = useCallback(() => {
         const initialSnake = getInitialSnake();
+
         setSnake(initialSnake);
         setDirection(Direction.RIGHT);
         setNextDirection(Direction.RIGHT);
+        
         const taken = initialSnake;
         setFood(generateFoodPosition(taken));
         setScore(0);
@@ -61,7 +62,6 @@ export const useSnakeGame = () => {
                     nextDirection = Direction.RIGHT;
                     break;
             }
-
             // prevent 180 degree turns
             if (nextDirection && !isOppositeDirection(direction, nextDirection)) {
                 setNextDirection(nextDirection);
@@ -79,7 +79,10 @@ export const useSnakeGame = () => {
 
     const updateGame = useCallback(() => {
         if (gameStatus !== GameStatus.PLAYING) return;
+
         setDirection(nextDirection);
+        
+        let died = false;
 
         setSnake((prevSnake) => {
             const newSnake = [...prevSnake];
@@ -88,35 +91,45 @@ export const useSnakeGame = () => {
             
             // check collision
             if (isOutOfBounds(newHead) || checkCollision(newHead, newSnake)) {
-                console.log('ouch')
-                setGameStatus(GameStatus.GAME_OVER);
+                died = true;
+                // setGameStatus(GameStatus.GAME_OVER);
                 return prevSnake;
             }
-
             newSnake.unshift(newHead);
             return newSnake;
         })
 
-        setSnake((prev) => {
-            const head = prev[0];
-            const ate = head.x === food.x && head.y === food.y;
-            if (ate) {
-                setScore((s) => {
-                    const ns = s + 1;
-                    // if (ns > highScore) setHighScore(ns);
-                    return ns;
-                })
-            }
-            const next = ate ? [...prev] : [...prev.slice(0, prev.length - 1)];
-            return next;
-        })
+        // setTimeout(() => {
+            setSnake((prev) => {
+                if (died) {
+                    setGameStatus(GameStatus.GAME_OVER);
+                    return prev;
+                }
+                const head = prev[0];
+                const ate = head.x === food.x && head.y === food.y;
+                if (ate) {
+                    //  TODO: check why the score are multiplied by 2 instead of just 1 = Because React.Strict mode useCallback twice
+                    setScore((s) => {
+                        const ns = s + 1;
+                        console.log('score:', ns);
+                        const taken = [...snake];
+                        setFood(generateFoodPosition(taken));
+                        return ns;
+                    })
+                }
+                // const next = [...prev];
+                const next = ate ? [...prev] : [...prev.slice(0, prev.length - 1)];
+                // console.log('next', next);
+                return next;
+            })
+        // })
+        // });
 
-        const ate = snake[0] && snake[0].x === food.x && snake[0].y === food.y;
-        if (ate) {
-            const taken = [...snake];
-            setFood(generateFoodPosition(taken));
-        }
-
+        // const ate = snake[0] && snake[0].x === food.x && snake[0].y === food.y;
+        // if (ate) {
+        //     const taken = [...snake];
+        //     setFood(generateFoodPosition(taken));
+        // }
     }, [gameStatus, nextDirection, food, snake])
 
     const resetGame = useCallback(() => {

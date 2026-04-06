@@ -55,12 +55,12 @@ export const GameCanvas = ({ snake, food }: GameCanvasProps) => {
             ctx.roundRect(x, y, CELL_SIZE, CELL_SIZE, radius);
             ctx.fill();
 
-            // if (index === 0) {
-            //     ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-            //     ctx.beginPath();
-            //     ctx.roundRect(x + 4, y + 4, CELL_SIZE - 8, (CELL_SIZE - 8)/2, radius)
-            //     ctx.fill();
-            // }
+            if (index === 0) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.beginPath();
+                ctx.roundRect(x + 4, y + 4, CELL_SIZE - 8, (CELL_SIZE - 8)/2, radius)
+                ctx.fill();
+            }
         });
 
         // draw food as a circle
@@ -79,7 +79,7 @@ export const GameCanvas = ({ snake, food }: GameCanvasProps) => {
             ref={canvasRef}
             width={CANVAS_SIZE}
             height={CANVAS_SIZE}
-            className="rounded-lg"
+            className="border-4 border-green-900 rounded-lg"
         />
     )
 ;}
