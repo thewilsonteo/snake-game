@@ -41,8 +41,8 @@ function App() {
             onReset={resetGame}
           />
         </div>
-        <div className="p-7 text-gray-300">
-          <h3 className="text-xl font-bold text-white mb-1">Instructions</h3>
+        <div className="p-7 text-gray-700">
+          <h3 className="text-xl font-bold mb-1">Instructions</h3>
           <p className="text-sm">
             W/A/S/D ←/↑/↓/→ Move Snake
           </p>
