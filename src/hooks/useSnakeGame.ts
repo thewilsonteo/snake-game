@@ -46,18 +46,22 @@ export const useSnakeGame = () => {
 
             switch (e.key) {
                 case 'ArrowUp':
+                case 'W':
                 case 'w':
                     nextDirection = Direction.UP;
                     break;
                 case 'ArrowDown':
+                case 'S':
                 case 's':
                     nextDirection = Direction.DOWN;
                     break;
                 case 'ArrowLeft':
+                case 'A':
                 case 'a':
                     nextDirection = Direction.LEFT;
                     break;
                 case 'ArrowRight':
+                case 'D':
                 case 'd':
                     nextDirection = Direction.RIGHT;
                     break;
@@ -65,6 +69,7 @@ export const useSnakeGame = () => {
             // prevent 180 degree turns
             if (nextDirection && !isOppositeDirection(direction, nextDirection)) {
                 setNextDirection(nextDirection);
+                e.preventDefault();
             }
         }
     , [direction, gameStatus])

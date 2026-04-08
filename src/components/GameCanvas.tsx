@@ -42,7 +42,7 @@ export const GameCanvas = ({ snake, food }: GameCanvasProps) => {
         }
 
         // draw snake
-        snake.forEach((segment, index) => {
+        snake.forEach((segment) => {
             ctx.fillStyle = COLORS.snake;
 
             const x = segment.x * CELL_SIZE;
@@ -55,12 +55,12 @@ export const GameCanvas = ({ snake, food }: GameCanvasProps) => {
             ctx.roundRect(x, y, CELL_SIZE, CELL_SIZE, radius);
             ctx.fill();
 
-            if (index === 0) {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                ctx.beginPath();
-                ctx.roundRect(x + 4, y + 4, CELL_SIZE - 8, (CELL_SIZE - 8)/2, radius)
-                ctx.fill();
-            }
+            // if (index === 0) {   // snake head modifier
+            //     ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            //     ctx.beginPath();
+            //     ctx.roundRect(x + 4, y + 4, CELL_SIZE - 8, (CELL_SIZE - 8)/2, radius)
+            //     ctx.fill();
+            // }
         });
 
         // draw food as a circle
